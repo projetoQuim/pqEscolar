@@ -1,0 +1,101 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 6 de jun. de 2022, 14:59:04
+    Author     : Administrador
+*/
+
+body,html{
+    height: 100%;
+    width: 100%;
+  }
+  #header{
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background:#2F4F4F;
+      overflow-y: auto;
+      width: 250px;
+      transition: all ease-in-out 0.5s;
+      padding: 0 15px;
+      z-index: 9997;
+      
+  }
+  #header .usuario .img_usuario{
+      margin: 15px auto;
+      display: block;
+      width: 120px;
+      border: 8px solid #2c2f3f;
+      border-radius: 50%;
+      
+  }
+/*  #header .usuario .icone{
+      margin: 15px auto;
+      display: block;
+      width: 120px;
+      border: 8px solid #2c2f3f;
+      border-radius: 50%;
+      
+  }*/
+  #header .usuario h1{
+      margin: 0;
+      padding: 0;
+      font-size: 24px;
+      font-weight: 600;
+      text-align: center;
+      color: #fff;
+  }
+  #header .usuario .redes_sociais a{
+      font-size: 1rem;
+      background: #212431;
+      color: #fff;
+      padding: 0.6rem;
+      margin-right: 1rem;
+      border-radius: 50%;
+      transition: 0.3s;
+      text-decoration: none;
+  }
+  #header .usuario .redes_sociais a:hover{
+      background: #149ddd;
+  }
+  
+  .nav-menu{
+      padding: 1.5rem;
+  }
+  .nav-menu a, .nav-menu a:focus{
+        display: flex;
+        align-items: center;
+        color: #a8a9b4;
+        transition: 0.3s;
+        font-size: 15px;
+  }
+  .nav-menu a i, .nav-menu a:focus i{
+        padding-right: 0.8rem;
+        font-size: 24px;
+        color: #6f7180;
+  }
+  .nav-menu a:hover, .nav-menu .active, .nav-menu .active:focus, .nav-menu li:hover > a{
+      text-decoration: none;
+      color: #fff
+  }
+  /*PARA ALTERAR A COR DO SVG É DIFERENTE, NÃO SE USA COLOR E SIM FILL.. TEM TAMBÉM STROKE*/
+  .nav-menu a:hover svg, .nav-menu .active svg, .nav-menu .active:focus svg, .nav-menu li:hover > a svg{
+      fill:#00FA9A
+  }
+  
+  #main{
+      margin-left:250px;
+  }
+/*  section#inicio{
+      background-image: url("../imagens/escola3_site.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      width: 100%;
+      height:100vh; tamanho da tela do dispositivo
+      
+  }*/
