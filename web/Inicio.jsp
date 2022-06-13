@@ -141,6 +141,13 @@
                     </ul>
                 </nav>
             </section>
+            <footer class="bg-light text-center text-lg-start">
+                <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                    <a class="nav-link" href="Logout.jsp">
+                        <!--ÍCONE AQUI-->
+                        Sair</a>
+                </div>
+            </footer>
         </aside>
 
         <main id="main">

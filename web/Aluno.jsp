@@ -23,18 +23,18 @@
 
         <title>.::GUIOMAR::.</title>
 
-        <style>
-            section#inicio{
-                background-image: url("imagens/alunosFundo.jpg");
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-attachment: fixed;
-                background-position: center;
-                width: 100%;
-                height:100vh; /*tamanho da tela do dispositivo*/
-
-            }
-        </style>
+                <style>
+                    section#inicio{
+/*                        background-image: url("imagens/alunosFundo.jpg");
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        background-attachment: fixed;
+                        background-position: center;*/
+                        width: 100%;
+                        height:100vh; /*tamanho da tela do dispositivo*/
+        
+                    }
+                </style>
 
     </head>
     <body>
@@ -126,11 +126,43 @@
                     </ul>
                 </nav>
             </section>
+            <footer class="bg-light text-center text-lg-start">
+                <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                    <a class="nav-link" href="Logout.jsp">
+                        <!--ÍCONE AQUI-->
+                        Sair</a>
+                </div>
+            </footer>
         </aside>
 
         <main id="main">
             <section id="inicio" class="row m-0 p-0"> <!--m=margin - p=padding-->
-                <h1>Alunos...</h1>
+                <!--CABEÇALHO PARA PESQUISA-->
+                <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                    <a class="navbar-brand" href="#">Navbar fixo</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Home <span class="sr-only">(atual)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#">Desativado</a>
+                            </li>
+                        </ul>
+                        <form class="form-inline mt-2 mt-md-0">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Pesquisa" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                        </form>
+                    </div>
+                </nav>
+                <!--CABEÇALHO PARA PESQUISA-->
+                                <h1>Alunos...</h1>
                 <div>
 
 
