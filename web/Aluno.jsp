@@ -5,6 +5,8 @@
     Autor     : Administrador
 --%>
 
+<%@page import="java.io.FileOutputStream"%>
+<%@page import="java.io.File"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -23,18 +25,29 @@
 
         <title>.::GUIOMAR::.</title>
 
-                <style>
-                    section#inicio{
-/*                        background-image: url("imagens/alunosFundo.jpg");
-                        background-repeat: no-repeat;
-                        background-size: cover;
-                        background-attachment: fixed;
-                        background-position: center;*/
-                        width: 100%;
-                        height:100vh; /*tamanho da tela do dispositivo*/
-        
-                    }
-                </style>
+        <style>
+            section#inicio{
+                /*                        background-image: url("imagens/alunosFundo.jpg");
+                                        background-repeat: no-repeat;
+                                        background-size: cover;
+                                        background-attachment: fixed;
+                                        background-position: center;*/
+                width: 100%;
+                height:100vh; /*tamanho da tela do dispositivo*/
+
+            }
+            /*            #container{
+                            margin: 0px auto;
+                            width: 250px;
+                            height: 250px;
+                            border: 10px #333 solid;
+                        }*/
+            #videoElement{
+                width: 250px;
+                height:250px;
+                background-color: #666;
+            }
+        </style>
 
     </head>
     <body>
@@ -106,7 +119,7 @@
                                 Listas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="# "data-toggle="modal" data-target="#ModaCadastroAluno">
                                 <!--ÍCONE AQUI-->
                                 Cadastro</a>
                         </li>
@@ -136,39 +149,175 @@
         </aside>
 
         <main id="main">
-            <section id="inicio" class="row m-0 p-0"> <!--m=margin - p=padding-->
-                <!--CABEÇALHO PARA PESQUISA-->
-                <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                    <a class="navbar-brand" href="#">Navbar fixo</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Home <span class="sr-only">(atual)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link disabled" href="#">Desativado</a>
-                            </li>
-                        </ul>
-                        <form class="form-inline mt-2 mt-md-0">
-                            <input class="form-control mr-sm-2" type="text" placeholder="Pesquisa" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-                        </form>
-                    </div>
-                </nav>
-                <!--CABEÇALHO PARA PESQUISA-->
-                                <h1>Alunos...</h1>
-                <div>
-
-
-
+            <!--CABEÇALHO PARA PESQUISA-->
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="menuAluno">
+                <a class="navbar-brand" href="#">Navbar fixo</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(atual)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Desativado</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline mt-2 mt-md-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Pesquisa" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                    </form>
                 </div>
-            </section>
+            </nav>
+            <!--CABEÇALHO PARA PESQUISA-->
+            <!-- MODAL CADASTRO DE ALUNO -->
+            <div class="modal fade" id="ModaCadastroAluno" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="TituloModalCentralizado">CADASTRO DE ALUNO</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="controleAluno">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="RM">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="tfID" class="form-control" placeholder="ID">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="tfRGRA" class="form-control" placeholder="RG_RA">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="text" name="tfNome" class="form-control" placeholder="NOME">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="tfEndereco" class="form-control" placeholder="ENDEREÇO">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="tfTelefone" class="form-control" placeholder="TELEFONE">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="submit" class="btn btn-primary" >Gravar</button>
+                                </div>
+
+                                <!--TRECHO PARA CAPTURA DE FOTO-->
+                                <!--SÓ PARA GUARDAR O VALOR DA FOTO BASE64-->
+                                <input type="hidden" name="foto" id="foto" value=""/><br><br>
+                                <!--SÓ PARA GUARDAR O VALOR DA FOTO BASE64-->
+
+                                <div id="my_photo_booth">
+                                    <div id="my_camera"></div>
+                                    <!-- First, include the Webcam.js JavaScript Library -->
+                                    <script type="text/javascript" src="js/webcam.min.js"></script>
+                                    <!-- Configure a few settings and attach camera -->
+                                    <script language="JavaScript">
+                                        Webcam.set({
+                                            // live preview size
+                                            width: 320,
+                                            height: 240,
+                                            // device capture size
+                                            dest_width: 640,
+                                            dest_height: 480,
+                                            // final cropped size
+                                            crop_width: 480,
+                                            crop_height: 480,
+                                            // format and quality
+                                            image_format: 'jpeg',
+                                            jpeg_quality: 90,
+                                            // flip horizontal (mirror mode)
+                                            flip_horiz: true
+                                        });
+                                        Webcam.attach('#my_camera');
+                                    </script>
+                                    <!-- A button for taking snaps -->
+
+                                    <div id="pre_take_buttons">
+                                        <!-- This button is shown before the user takes a snapshot -->
+                                        <input type=button value="Take Snapshot" onClick="preview_snapshot()">
+                                    </div>
+                                    <div id="post_take_buttons" style="display:none">
+                                        <!-- These buttons are shown after a snapshot is taken -->
+                                        <input type=button value="&lt; Take Another" onClick="cancel_preview()">
+                                        <input type=button value="Save Photo &gt;" onClick="save_photo()" style="font-weight:bold;">
+                                    </div>
+
+                                </div>
+
+                                <div id="results" style="display:none">
+                                    <!-- Your captured image will appear here... -->
+                                </div>
+                                <!-- Code to handle taking the snapshot and displaying it locally -->
+                                <script language="JavaScript">
+                                    // preload shutter audio clip
+                                    var shutter = new Audio();
+                                    shutter.autoplay = false;
+                                    shutter.src = navigator.userAgent.match(/Firefox/) ? 'shutter.ogg' : 'shutter.mp3';
+
+                                    function preview_snapshot() {
+                                        // play sound effect
+                                        try {
+                                            shutter.currentTime = 0;
+                                        } catch (e) {
+                                            ;
+                                        } // fails in IE
+                                        shutter.play();
+
+                                        // freeze camera so user can preview current frame
+                                        Webcam.freeze();
+
+                                        //document.getElementById("foto").value=data_uri;
+
+                                        // swap button sets
+                                        document.getElementById('pre_take_buttons').style.display = 'none';
+                                        document.getElementById('post_take_buttons').style.display = '';
+                                    }
+
+                                    function cancel_preview() {
+                                        // cancel preview freeze and return to live camera view
+                                        Webcam.unfreeze();
+
+                                        // swap buttons back to first set
+                                        document.getElementById('pre_take_buttons').style.display = '';
+                                        document.getElementById('post_take_buttons').style.display = 'none';
+                                    }
+                                    function save_photo() {
+                                        // actually snap photo (from preview freeze) and display it
+                                        Webcam.snap(function (data_uri) {
+                                            // display results in page
+                                            document.getElementById('results').innerHTML = '<h2>Here is your large, cropped image:</h2>' +
+                                                    '<img src="' + data_uri + '"/><br/></br>' +
+                                                    '<a href="' + data_uri + '" target="_blank">Open image in new window...</a>';
+                                            // shut down camera, stop capturing
+                                            document.getElementById("foto").value = data_uri;
+
+                                            Webcam.reset();
+                                            // show results, hide photo booth
+                                            document.getElementById('results').style.display = '';
+                                            document.getElementById('my_photo_booth').style.display = 'none';
+                                        });
+                                    }
+                                </script>
+                                <br>
+                                <!--TRECHO PARA CAPTURA DE FOTO-->
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- MODAL CADASTRO DE ALUNO -->
+
         </main>
 
         <a href="Logout.jsp">Logout</a> 

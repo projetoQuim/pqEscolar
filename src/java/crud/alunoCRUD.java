@@ -28,7 +28,7 @@ public class alunoCRUD {
 
     public void cadastra(aluno alu) {
         try {
-            PreparedStatement psAluno = con.prepareStatement("inserto into aluno(idAluno, RGRA,nome,endereco,telefone,foto) values(?,?,?,?,?,?)");
+            PreparedStatement psAluno = con.prepareStatement("insert into aluno(idAluno, RGRA,nome,endereco,telefone,foto) values(?,?,?,?,?,?)");
             psAluno.setString(1, alu.getId());
             psAluno.setString(2, alu.getRgra());
             psAluno.setString(3, alu.getNome());
@@ -38,7 +38,7 @@ public class alunoCRUD {
 
             psAluno.executeUpdate();
 
-            System.out.println("PASSOU PELO CADASTRO DE USUÁRIO...");
+            System.out.println("PASSOU PELO CADASTRO DE ALUNO...");
             con.close();
 
         } catch (SQLException sqle) {
