@@ -54,13 +54,13 @@ public class alunoCRUD {
             ResultSet rsAluno = stmt.executeQuery("select * from aluno");
             while (rsAluno.next()) {
                 aluno alu = new aluno();
-
+                alu.setRm(rsAluno.getInt("RM"));
                 alu.setId(rsAluno.getString("idAluno"));
-                alu.setId(rsAluno.getString("RGRA"));
-                alu.setId(rsAluno.getString("NOME"));
-                alu.setId(rsAluno.getString("ENDERECO"));
-                alu.setId(rsAluno.getString("TELEFONE"));
-                alu.setId(rsAluno.getString("FOTO"));
+                alu.setRgra(rsAluno.getString("RGRA"));
+                alu.setNome(rsAluno.getString("NOME"));
+                alu.setEndereco(rsAluno.getString("ENDERECO"));
+                alu.setTelefone(rsAluno.getString("TELEFONE"));
+                alu.setFoto(rsAluno.getString("FOTO"));
 
                 listaDeAlunos.add(alu);
             }

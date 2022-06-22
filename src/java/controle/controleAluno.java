@@ -34,7 +34,6 @@ public class controleAluno extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -42,6 +41,8 @@ public class controleAluno extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             String aciona = request.getParameter("acao");
+            int rmaluno = Integer.parseInt(request.getParameter("rmAluno"));
+
             alunoCRUD acaoAluno = new alunoCRUD();
 
             aluno alu = new aluno();
@@ -50,45 +51,32 @@ public class controleAluno extends HttpServlet {
             alu.setNome(request.getParameter("tfNome"));
             alu.setEndereco(request.getParameter("tfEndereco"));
             alu.setTelefone(request.getParameter("tfTelefone"));
-            
+
             String foto = request.getParameter("foto");//Será convertido em arquivo
 
-            String arquivo = foto.split(",")[1];
-            String caminhoImagem = request.getServletContext().getRealPath("fotos") + File.separator;
+            if (aciona.equalsIgnoreCase("novo")) {
+                //MONTANDO A FOTO/ARQUIVO
+                String arquivo = foto.split(",")[1];
+                String caminhoImagem = request.getServletContext().getRealPath("fotos") + File.separator;
+                byte[] btDataFile = DatatypeConverter.parseBase64Binary(arquivo);
+                File of = new File(caminhoImagem + request.getParameter("tfID") + ".png");
+                try ( FileOutputStream osf = new FileOutputStream(of)) {
+                    osf.write(btDataFile);
+                    osf.flush();
+                    osf.close();// SE NÃO COLOCAR O CLOSE, ELE DEIXA O ARQUIVO ABERTO...
+                }
+ /*A FOTO É PEGA AQUI*/
+                alu.setFoto("fotos/" + request.getParameter("tfID") + ".png");
+                acaoAluno.cadastra(alu);
+                response.sendRedirect("Aluno.jsp?acao=novo");
+            } else if (aciona.equalsIgnoreCase("atualiza")) {
+//                acaoAluno.atualizaAluno(alu);
+            } else if (aciona.equalsIgnoreCase("excluir")) {
+                acaoAluno.deletaAluno(rmaluno);
+                response.sendRedirect("Aluno.jsp");
+            } else if (aciona.equalsIgnoreCase("matricula")) {
 
-            //TROCAR AS BARRAS "\" POR "/" POIS É COM A TAG IMG ABRE O CAMINHO....
-            //DEU DOR DE CABEÇA POIS, QUANDO SE USA ALGUNS CARACTERES NESSA FUNÇÃO (REPLACEALL) ELA VERIFICA SE NÃO SE TRATA DE UM "REGEX(EXPRESSÃO REGULAR- TIPO "\n", QUE É PARA SALTAR PARA LINHA DE BAIXO )"
-            //caminhoImagem = caminhoImagem.replaceAll("[\"]" , "/");
-            
-            byte[] btDataFile = DatatypeConverter.parseBase64Binary(arquivo);
-
-            File of = new File(caminhoImagem+request.getParameter("tfID")+".png");
-            try ( FileOutputStream osf = new FileOutputStream(of)) {
-                osf.write(btDataFile);
-                osf.flush();
-                osf.close();// SE NÃO COLOCAR O CLOSE, ELE DEIXA O ARQUIVO ABERTO...
             }
-            
-            alu.setFoto(caminhoImagem+request.getParameter("tfID")+".png");
-            
-            out.println(aciona+"<br>");
-            out.println(alu.getId()+"<br>");
-            out.println(alu.getRgra()+"<br>");
-            out.println(alu.getNome()+"<br>");
-            out.println(alu.getEndereco()+"<br>");
-            out.println(alu.getTelefone()+"<br>");
-            out.println(foto+"<br>");
-            out.println(caminhoImagem+"<br>");
-            out.println(arquivo);
-            
-            acaoAluno.cadastra(alu);
-
-//            if (aciona.equalsIgnoreCase("em_branco")) {
-//                response.sendRedirect("Inicio.jsp");
-//            } else if (aciona.equalsIgnoreCase("novo")) {
-//                acaoAluno.cadastra(alu);
-//                response.sendRedirect("Login.jsp");
-//            }
         }
     }
 
