@@ -258,6 +258,7 @@
                                 </div>
 
                                 <!--TRECHO PARA CAPTURA DE FOTO-->
+                                
                                 <!--SÓ PARA GUARDAR O VALOR DA FOTO BASE64-->
                                 <input type="hidden" name="foto" id="foto" value=""/><br><br>
                                 <!--SÓ PARA GUARDAR O VALOR DA FOTO BASE64-->
@@ -268,24 +269,24 @@
                                     <script type="text/javascript" src="js/webcam.min.js"></script>
                                     <!-- Configure a few settings and attach camera -->
                                     <script language="JavaScript">
-                Webcam.set({
-                    //ALTERAÇÃO DA ÁREA DE FOTO
-                    // live preview size
-                    width: 320,
-                    height: 240,
-                    // device capture size
-                    dest_width: 320,
-                    dest_height: 240,
-                    // final cropped size
-                    crop_width: 320,
-                    crop_height: 240,
-                    // format and quality
-                    image_format: 'jpeg',
-                    jpeg_quality: 90,
-                    // flip horizontal (mirror mode)
-                    flip_horiz: true
-                });
-                Webcam.attach('#my_camera');
+                                        Webcam.set({
+                                            //ALTERAÇÃO DA ÁREA DE FOTO
+                                            // live preview size
+                                            width: 320,
+                                            height: 240,
+                                            // device capture size
+                                            dest_width: 320,
+                                            dest_height: 240,
+                                            // final cropped size
+                                            crop_width: 320,
+                                            crop_height: 240,
+                                            // format and quality
+                                            image_format: 'jpeg',
+                                            jpeg_quality: 90,
+                                            // flip horizontal (mirror mode)
+                                            flip_horiz: true
+                                        });
+                                        Webcam.attach('#my_camera');
                                     </script>
                                     <!-- A button for taking snaps -->
 
@@ -342,9 +343,8 @@
                                         // actually snap photo (from preview freeze) and display it
                                         Webcam.snap(function (data_uri) {
                                             // display results in page
-                                            document.getElementById('results').innerHTML = '<h2>Here is your large, cropped image:</h2>' +
-                                                    '<img src="' + data_uri + '"/><br/></br>' +
-                                                    '<a href="' + data_uri + '" target="_blank">Open image in new window...</a>';
+                                            document.getElementById('results').innerHTML = '<h2>Imagem salva</h2>' +
+                                                    '<img src="' + data_uri + '"/><br/></br>';
                                             // shut down camera, stop capturing
                                             document.getElementById("foto").value = data_uri;
 
@@ -357,10 +357,8 @@
                                 </script>
                                 <br>
                                 <!--TRECHO PARA CAPTURA DE FOTO-->
-
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
