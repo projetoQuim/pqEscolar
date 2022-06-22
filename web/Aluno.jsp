@@ -64,8 +64,11 @@
             } else {
                 out.println("Bem vindo, " + usuario + "<br>");
             }
-        %>
 
+            String aciona = request.getParameter("acao");
+
+        %>
+        <!--MAENU LATERAL-->
         <aside id="header">
             <section class="usuario">
                 <img class="img_usuario" src="imagens/iconeG.png" alt="Foto do usuário">
@@ -151,6 +154,7 @@
                 </div>
             </footer>
         </aside>
+        <!--MAENU LATERAL-->
 
         <main id="main">
             <div class="jumbotron jumbotron-fluid">
@@ -159,10 +163,9 @@
                     <p class="lead">Página destinada ao controle de alunos{Cadastros, Consultas, Matrículas...}</p>
                 </div>
             </div>
-
+            <!--TABELA/LISTA DE ALUNOS-->
             <table class="table table-hover shadow-lg p-3 mb-5 bg-white rounded">
-                <%
-                    alunoCRUD alu = new alunoCRUD();
+                <%                    alunoCRUD alu = new alunoCRUD();
                     List<aluno> lista = alu.listaAlunos();
                 %>
                 <thead>
@@ -209,7 +212,14 @@
                     <%}%>
                 </tbody>
             </table>
+            <!--TABELA/LISTA DE ALUNOS-->
 
+            <!--SCRIPT QUE SERÁ USADO PARA CARREGAR O MODAL AUTOMATICAMENTE... ATUALIZAR - *NOVO* COM MODAL PREENCHIDO - ETC...ETC..ETC...-->
+            <script type="text/javascript">
+                $(window).on('load', function () {
+                    $('#ModaCadastroAluno').modal('show');
+                });
+            </script>
 
             <!-- MODAL CADASTRO DE ALUNO -->
             <div class="modal fade" id="ModaCadastroAluno" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
@@ -258,23 +268,24 @@
                                     <script type="text/javascript" src="js/webcam.min.js"></script>
                                     <!-- Configure a few settings and attach camera -->
                                     <script language="JavaScript">
-                                        Webcam.set({
-                                            // live preview size
-                                            width: 320,
-                                            height: 240,
-                                            // device capture size
-                                            dest_width: 640,
-                                            dest_height: 480,
-                                            // final cropped size
-                                            crop_width: 480,
-                                            crop_height: 480,
-                                            // format and quality
-                                            image_format: 'jpeg',
-                                            jpeg_quality: 90,
-                                            // flip horizontal (mirror mode)
-                                            flip_horiz: true
-                                        });
-                                        Webcam.attach('#my_camera');
+                Webcam.set({
+                    //ALTERAÇÃO DA ÁREA DE FOTO
+                    // live preview size
+                    width: 320,
+                    height: 240,
+                    // device capture size
+                    dest_width: 320,
+                    dest_height: 240,
+                    // final cropped size
+                    crop_width: 320,
+                    crop_height: 240,
+                    // format and quality
+                    image_format: 'jpeg',
+                    jpeg_quality: 90,
+                    // flip horizontal (mirror mode)
+                    flip_horiz: true
+                });
+                Webcam.attach('#my_camera');
                                     </script>
                                     <!-- A button for taking snaps -->
 
@@ -354,7 +365,6 @@
                 </div>
             </div>
             <!-- MODAL CADASTRO DE ALUNO -->
-
         </main>
 
         <a href="Logout.jsp">Logout</a> 

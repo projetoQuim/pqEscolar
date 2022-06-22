@@ -41,8 +41,11 @@ public class controleAluno extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             String aciona = request.getParameter("acao");
-            int rmaluno = Integer.parseInt(request.getParameter("rmAluno"));
-
+            String rm_aluno = request.getParameter("rmAluno");
+            int rmaluno = 0;
+            if(rm_aluno!=null){
+                rmaluno = Integer.parseInt(rm_aluno);
+            }
             alunoCRUD acaoAluno = new alunoCRUD();
 
             aluno alu = new aluno();
@@ -65,12 +68,13 @@ public class controleAluno extends HttpServlet {
                     osf.flush();
                     osf.close();// SE NÃO COLOCAR O CLOSE, ELE DEIXA O ARQUIVO ABERTO...
                 }
- /*A FOTO É PEGA AQUI*/
+                /*A FOTO É PEGA AQUI*/
                 alu.setFoto("fotos/" + request.getParameter("tfID") + ".png");
                 acaoAluno.cadastra(alu);
                 response.sendRedirect("Aluno.jsp?acao=novo");
             } else if (aciona.equalsIgnoreCase("atualiza")) {
-//                acaoAluno.atualizaAluno(alu);
+                acaoAluno.retornaAluno(rmaluno);
+                response.sendRedirect("Aluno.jsp?acao=atualiza");
             } else if (aciona.equalsIgnoreCase("excluir")) {
                 acaoAluno.deletaAluno(rmaluno);
                 response.sendRedirect("Aluno.jsp");
