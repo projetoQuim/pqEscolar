@@ -90,17 +90,19 @@ public class alunoCRUD {
             psAluno.setInt(1, RM);
             ResultSet rsAluno = psAluno.executeQuery();
             if (rsAluno.next()) {
+                alu.setRm(rsAluno.getInt("RM"));
                 alu.setId(rsAluno.getString("idAluno"));
-                alu.setId(rsAluno.getString("RGRA"));
-                alu.setId(rsAluno.getString("NOME"));
-                alu.setId(rsAluno.getString("ENDERECO"));
-                alu.setId(rsAluno.getString("TELEFONE"));
-                alu.setId(rsAluno.getString("FOTO"));
+                alu.setRgra(rsAluno.getString("RGRA"));
+                alu.setNome(rsAluno.getString("NOME"));
+                alu.setEndereco(rsAluno.getString("ENDERECO"));
+                alu.setTelefone(rsAluno.getString("TELEFONE"));
+                alu.setFoto(rsAluno.getString("FOTO"));
             }
             con.close();
         } catch (SQLException sqle) {
             System.out.println("Classe alunoCrud - retornaAluno() - SQLException");
         }
+        System.out.println("PASSOU PELO RETORNA ALUNO");
         return alu;
     }
 
@@ -113,11 +115,13 @@ public class alunoCRUD {
             psAluno.setString(4, alu.getEndereco());
             psAluno.setString(5, alu.getTelefone());
             psAluno.setString(6, alu.getFoto());
-            
+            psAluno.setInt(7, alu.getRm());
+
             psAluno.executeUpdate();
             con.close();
         } catch (SQLException sqle) {
             System.out.println("Classe alunoCrud - atualizaAluno() - SQLException");
         }
+        System.out.println("PASSOU PELO ATUALIZA ALUNO");
     }
 }

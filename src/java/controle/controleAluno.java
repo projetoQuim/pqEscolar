@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,10 +42,9 @@ public class controleAluno extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             String aciona = request.getParameter("acao");
-            String rm_aluno = request.getParameter("rmAluno");
-            int rmaluno = 0;
-            if(rm_aluno!=null){
-                rmaluno = Integer.parseInt(rm_aluno);
+            int rm_aluno=0;
+            if(request.getParameter("rmAluno")!=null){
+                rm_aluno = Integer.parseInt(request.getParameter("rmAluno"));
             }
             alunoCRUD acaoAluno = new alunoCRUD();
 
@@ -73,13 +73,19 @@ public class controleAluno extends HttpServlet {
                 acaoAluno.cadastra(alu);
                 response.sendRedirect("Aluno.jsp?acao=novo");
             } else if (aciona.equalsIgnoreCase("atualiza")) {
-                acaoAluno.retornaAluno(rmaluno);
-                response.sendRedirect("Aluno.jsp?acao=atualiza");
-            } else if (aciona.equalsIgnoreCase("excluir")) {
-                acaoAluno.deletaAluno(rmaluno);
-                response.sendRedirect("Aluno.jsp");
-            } else if (aciona.equalsIgnoreCase("matricula")) {
+                aluno alunoAtualizado = new aluno();
+                alunoAtualizado = acaoAluno.retornaAluno(rm_aluno);
+                request.setAttribute("alunoAtualizado", alunoAtualizado);
+                RequestDispatcher rd = request.getRequestDispatcher("Aluno.jsp?acao=atualiza");
+                rd.forward(request, response);
 
+//                response.sendRedirect("Aluno.jsp?acao=atualiza");
+            } else if (aciona.equalsIgnoreCase("excluir")) {
+                acaoAluno.deletaAluno(rm_aluno);
+                response.sendRedirect("Aluno.jsp");
+            } else if (aciona.equalsIgnoreCase("alunoAtualizado")) {
+                acaoAluno.atualizaAluno(alu);
+                response.sendRedirect("Aluno.jsp");
             }
         }
     }

@@ -53,22 +53,55 @@
             }
         </style>
 
-    </head>
-    <body>
-
         <%
             String usuario = (String) session.getAttribute("usuario");
+            aluno alu = new aluno();
 
             if (usuario == null) {
                 response.sendRedirect("Login.jsp");
             } else {
                 out.println("Bem vindo, " + usuario + "<br>");
             }
+            
+            int rmaluno = alu.getRm()+1;
+            String idaluno = "";
+            String rgraaluno = "";
+            String nomealuno = "";
+            String enderecoaluno = "";
+            String telefonealuno = "";
+            String fotoaluno = "";
 
-            String aciona = request.getParameter("acao");
+            String aciona = "novo";
+            if (request.getParameter("acao") != null) {
+                aciona = request.getParameter("acao");
+                if (aciona.equalsIgnoreCase("atualiza")) {
+                    alu = (aluno) request.getAttribute("alunoAtualizado");
+                    rmaluno=alu.getRm();
+                    idaluno=alu.getId();
+                    rgraaluno=alu.getRgra();
+                    nomealuno=alu.getNome();
+                    enderecoaluno=alu.getEndereco();
+                    telefonealuno=alu.getTelefone();
+                    fotoaluno=alu.getFoto();
+        
+                %>
+                    <!--SCRIPT QUE SERÁ USADO PARA CARREGAR O MODAL AUTOMATICAMENTE... ATUALIZAR - *NOVO* COM MODAL PREENCHIDO - ETC...ETC..ETC...-->
+                    <script type="text/javascript">
+                        $(window).on('load', function () {
+                            $('#ModalCadastroAluno').modal('show');
+                        });
+                    </script>
+                <%}else if (aciona.equalsIgnoreCase("novo")) {
+                       if(alu.getRm()!=0){
+                      
+                       }
+                  }else if (aciona.equalsIgnoreCase("atualiza")) {
+                  }
+            }%>
 
-        %>
-        <!--MAENU LATERAL-->
+    </head>
+    <body>
+        <!--MENU LATERAL-->
         <aside id="header">
             <section class="usuario">
                 <img class="img_usuario" src="imagens/iconeG.png" alt="Foto do usuário">
@@ -126,7 +159,7 @@
                                 Listas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="# "data-toggle="modal" data-target="#ModaCadastroAluno">
+                            <a class="nav-link" href="# "data-toggle="modal" data-target="#ModalCadastroAluno">
                                 <!--ÍCONE AQUI-->
                                 Cadastro</a>
                         </li>
@@ -154,7 +187,7 @@
                 </div>
             </footer>
         </aside>
-        <!--MAENU LATERAL-->
+        <!--MENU LATERAL-->
 
         <main id="main">
             <div class="jumbotron jumbotron-fluid">
@@ -165,8 +198,8 @@
             </div>
             <!--TABELA/LISTA DE ALUNOS-->
             <table class="table table-hover shadow-lg p-3 mb-5 bg-white rounded">
-                <%                    alunoCRUD alu = new alunoCRUD();
-                    List<aluno> lista = alu.listaAlunos();
+                <%  alunoCRUD alucrud = new alunoCRUD();
+                    List<aluno> lista = alucrud.listaAlunos();
                 %>
                 <thead>
                     <tr>
@@ -183,7 +216,7 @@
                 <tbody>
                     <%for (aluno alunos : lista) {%>
                     <tr>
-                        <td><img src="<%=alunos.getFoto()%>" 'width='75' height='75'></td>
+                        <td><img src="<%=alunos.getFoto()%>" width='75' height='75'></td>
                         <td><%=alunos.getRm()%></td>
                         <td><%=alunos.getId()%></td>
                         <td><%=alunos.getRgra()%></td>
@@ -213,43 +246,35 @@
                 </tbody>
             </table>
             <!--TABELA/LISTA DE ALUNOS-->
-
-            <!--SCRIPT QUE SERÁ USADO PARA CARREGAR O MODAL AUTOMATICAMENTE... ATUALIZAR - *NOVO* COM MODAL PREENCHIDO - ETC...ETC..ETC...-->
-            <script type="text/javascript">
-                $(window).on('load', function () {
-                    $('#ModaCadastroAluno').modal('show');
-                });
-            </script>
-
             <!-- MODAL CADASTRO DE ALUNO -->
-            <div class="modal fade" id="ModaCadastroAluno" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+            <div class="modal fade" id="ModalCadastroAluno" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="TituloModalCentralizado">CADASTRO DE ALUNO</h5>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="controleAluno?acao=novo">
+                            <form method="POST" action="controleAluno">
                                 <div class="form-row">
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="RM">
+                                        <input type="text" class="form-control" placeholder="RM" value=<%=rmaluno%>>
                                     </div>
                                     <div class="col">
-                                        <input type="text" name="tfID" class="form-control" placeholder="ID">
+                                        <input type="text" name="tfID" class="form-control" placeholder="ID" value=<%=idaluno%>>
                                     </div>
                                     <div class="col">
-                                        <input type="text" name="tfRGRA" class="form-control" placeholder="RG_RA">
+                                        <input type="text" name="tfRGRA" class="form-control" placeholder="RG_RA" value=<%=rgraaluno%>>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col">
-                                        <input type="text" name="tfNome" class="form-control" placeholder="NOME">
+                                        <input type="text" name="tfNome" class="form-control" placeholder="NOME" value=<%=nomealuno%>>
                                     </div>
                                     <div class="col">
-                                        <input type="text" name="tfEndereco" class="form-control" placeholder="ENDEREÇO">
+                                        <input type="text" name="tfEndereco" class="form-control" placeholder="ENDEREÇO" value=<%=enderecoaluno%>>
                                     </div>
                                     <div class="col">
-                                        <input type="text" name="tfTelefone" class="form-control" placeholder="TELEFONE">
+                                        <input type="text" name="tfTelefone" class="form-control" placeholder="TELEFONE" value=<%=telefonealuno%>>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -258,7 +283,7 @@
                                 </div>
 
                                 <!--TRECHO PARA CAPTURA DE FOTO-->
-                                
+
                                 <!--SÓ PARA GUARDAR O VALOR DA FOTO BASE64-->
                                 <input type="hidden" name="foto" id="foto" value=""/><br><br>
                                 <!--SÓ PARA GUARDAR O VALOR DA FOTO BASE64-->
@@ -343,7 +368,7 @@
                                         // actually snap photo (from preview freeze) and display it
                                         Webcam.snap(function (data_uri) {
                                             // display results in page
-                                            document.getElementById('results').innerHTML = '<h2>Imagem salva</h2>' +
+                                            document.getElementById('results').innerHTML = '<h3>Imagem salva</h3>' +
                                                     '<img src="' + data_uri + '"/><br/></br>';
                                             // shut down camera, stop capturing
                                             document.getElementById("foto").value = data_uri;
@@ -363,6 +388,50 @@
                 </div>
             </div>
             <!-- MODAL CADASTRO DE ALUNO -->
+            <!-- MODAL ATUALIZA ALUNO -->
+            <div class="modal fade" id="ModalAtualizaAluno" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="TituloModalCentralizado">ATUALIZAÇÃO DE ALUNO</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="controleAluno?acao=alunoAtualizado">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="RM" value=<%=alu.getRm()%>>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="tfAtualizaID" class="form-control" placeholder="ID" value=<%=alu.getId()%>>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="tfAtualizaRGRA" class="form-control" placeholder="RG_RA" value=<%=alu.getRgra()%>>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="text" name="tfAtualizaNome" class="form-control" placeholder="NOME" value=<%=alu.getNome()%>>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="tfAtualizaEndereco" class="form-control" placeholder="ENDEREÇO" value=<%=alu.getEndereco()%>>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="tfAtualizaTelefone" class="form-control" placeholder="TELEFONE" value=<%=alu.getTelefone()%>>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="submit" class="btn btn-primary" >Gravar</button>
+                                </div>
+                                    <div>
+                                        <img src=<%=fotoaluno%> width='75' height='75' alt="alt"/>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- MODAL ATUALIZA ALUNO -->
         </main>
 
         <a href="Logout.jsp">Logout</a> 
